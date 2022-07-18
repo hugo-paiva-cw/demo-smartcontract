@@ -35,6 +35,78 @@
       "artifacts": [
         "HelloCloudWalk"
       ]
+    },
+    "/Users/hugopaiva-mba/Documents/hello-liquidity-pool/contracts/ABDKMath64x64.sol": {
+      "lastModificationDate": 1658163376197,
+      "contentHash": "fba581d6d9dff169669eab84279d0fcb",
+      "sourceName": "contracts/ABDKMath64x64.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ABDKMath64x64"
+      ]
+    },
+    "/Users/hugopaiva-mba/Documents/hello-liquidity-pool/contracts/LiquidityPool.sol": {
+      "lastModificationDate": 1658163445878,
+      "contentHash": "80ef0e08b3855ed14b97fa6283dbd452",
+      "sourceName": "contracts/LiquidityPool.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./ABDKMath64x64.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "LiquidityPool"
+      ]
     }
   }
 }

@@ -1,9 +1,9 @@
 async function main() {
-    const HelloWorld = await ethers.getContractFactory("HelloCloudWalk");
+    const LiquidityPool = await ethers.getContractFactory("LiquidityPool");
  
     // Start deployment, returning a promise that resolves to a contract object
-    const hello_world = await HelloWorld.deploy("Hello World!");
-    console.log("Contract deployed to address:", hello_world.address);}
+    const liq_pool = await LiquidityPool.deploy();
+    console.log("Contract deployed to address:", liq_pool.address);}
  
  main()
    .then(() => process.exit(0))
