@@ -1,22 +1,27 @@
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.1;
 
 import "./ABDKMath64x64.sol";
+import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 contract LiquidityPool {
+    using SafeERC20 for IERC20;
+
     struct Investment {
         address investor;
         uint timestampOfDeposit;
         uint amountOfMoney;
     }
-    
-    constructor() {
-        contractOwner = msg.sender;
-    }
-    
+    IERC20 token;
     address public contractOwner;
     uint public dailyCDIinPoints = 49037; // fracao de 1% por 1_000_000;
     mapping(address => Investment ) public allInvestors;
     uint secondsPerDay = 86400;
+    
+    constructor(IERC20 _brlcToken) {
+        // IERC20 token = '0xC6d1eFd908ef6B69dA0749600F553923C465c812';
+        token = _brlcToken;
+        contractOwner = msg.sender;
+    }
 
     modifier onlyOwner() {
         require(msg.sender == contractOwner);
@@ -24,7 +29,6 @@ contract LiquidityPool {
     }
 
     function invest() public payable {
-        // bool isNewInvestor = lookUpPreviousInvestmentsAndUpdate();
         Investment memory currentInvestment = allInvestors[msg.sender];
         uint depositPlusInterest = 0;
         if (currentInvestment.timestampOfDeposit > 0) {
@@ -40,7 +44,7 @@ contract LiquidityPool {
         
         updatedInvestment.investor = msg.sender;
         updatedInvestment.timestampOfDeposit = block.timestamp;
-        updatedInvestment.amountOfMoney = weiToEther(msg.value) + previousValue;   
+        updatedInvestment.amountOfMoney = weiToEther(token.balanceOf(address(this))) + previousValue;   
     }
 
     // function lookUpPreviousInvestmentsAndUpdate() private returns (bool) {
@@ -48,18 +52,18 @@ contract LiquidityPool {
     // }
 
     function etherToWei(uint valueEther) public pure returns (uint) {
-       return valueEther*(10**18);
+       return valueEther*(10**6);
     }
 
     function weiToEther(uint valueWei) public pure returns (uint) {
-       return valueWei/(10**18);
+       return valueWei/(10**6);
     }
 
     function withdrawTokens(uint requestedValue) public {
         Investment storage currentInvestment = allInvestors[msg.sender];
 
         require(currentInvestment.amountOfMoney > 0);        
-        require(weiToEther(requestedValue) < currentInvestment.amountOfMoney);
+        require(requestedValue < currentInvestment.amountOfMoney);
         
         int128 interest = getInterestSince(currentInvestment.timestampOfDeposit);
 
@@ -68,26 +72,21 @@ contract LiquidityPool {
         uint newBalance = acumulattedDepositPlusInterest - requestedValue;
 
         address customer = currentInvestment.investor;
-        bool isCompleted = payable(customer).send(etherToWei(requestedValue));
-        
-        if (isCompleted) {
-            currentInvestment.amountOfMoney = newBalance;
-            currentInvestment.timestampOfDeposit = block.timestamp;
-        }
-    }
+        // bool isCompleted = payable(customer).send(etherToWei(requestedValue));
+        token.safeTransfer(customer, etherToWei(requestedValue));
 
-    // function lazyBalanceUpdate() public returns () {
-    //     currentInvestment.amountOfMoney -= etherToWei(withdrawed);
-    // }
+        currentInvestment.amountOfMoney = newBalance;
+        currentInvestment.timestampOfDeposit = block.timestamp;
+        
+        // if (isCompleted) {
+        //     currentInvestment.amountOfMoney = newBalance;
+        //     currentInvestment.timestampOfDeposit = block.timestamp;
+        // }
+    }
 
     function checkMyBalance() public view returns(uint) {
         uint valor = allInvestors[msg.sender].amountOfMoney;
-
-
-        // require(investmentIsFound); // acredito que é possivle passar mensagem de erro como parametro
         return valor;
-
-        // return currentInvestment.amountOfMoney;
     }
 
     function checkContractBalance() public view returns (uint) {
@@ -124,5 +123,17 @@ contract LiquidityPool {
         // TODO mudar CDI já tem o modifier onlyOwner ai
         // Take the example 1% equals to 1_000_000 points. 0.05% equals to 50_000 points
         dailyCDIinPoints = cdiInPercentualPoints;
+    }
+
+    function transferERC20(address to, uint amount) public {
+        // require(msg.sender == contractOwner);
+        uint erc20balance = token.balanceOf(address(this));
+        require(amount <= erc20balance, 'balance is low');
+        token.safeTransfer(to, amount);
+    }
+
+    function getBalanceERC20() public view returns (uint) {
+        uint erc20balance = token.balanceOf(address(this));
+        return erc20balance;
     }
 }
