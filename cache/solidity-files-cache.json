@@ -41,7 +41,7 @@
       "contentHash": "9ee514245804990bc96e4d6e57b4ef9f",
       "sourceName": "contracts/ABDKMath64x64.sol",
       "solcConfig": {
-        "version": "0.8.1",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -216,11 +216,11 @@
       ]
     },
     "/Users/hugopaiva-mba/Documents/hello-liquidity-pool/contracts/ERC20.sol": {
-      "lastModificationDate": 1658703250456,
+      "lastModificationDate": 1658729043164,
       "contentHash": "516e3513b3c68c90461045affc659887",
       "sourceName": "contracts/ERC20.sol",
       "solcConfig": {
-        "version": "0.8.1",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -251,11 +251,11 @@
       ]
     },
     "/Users/hugopaiva-mba/Documents/hello-liquidity-pool/contracts/Interfaces/IERC4626.sol": {
-      "lastModificationDate": 1658696055348,
-      "contentHash": "b49a725a9dc6ebf5d0e8ce4e680e18fa",
+      "lastModificationDate": 1658762469113,
+      "contentHash": "776681733bddf3515b228ae0734748c5",
       "sourceName": "contracts/Interfaces/IERC4626.sol",
       "solcConfig": {
-        "version": "0.8.1",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -279,18 +279,18 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.1"
+        "^0.8.7"
       ],
       "artifacts": [
         "IERC4626"
       ]
     },
     "/Users/hugopaiva-mba/Documents/hello-liquidity-pool/contracts/Interfaces/IERC20.sol": {
-      "lastModificationDate": 1658696265190,
-      "contentHash": "ac970eef345bdd4c68ab6e57bcdafafe",
+      "lastModificationDate": 1658762473201,
+      "contentHash": "6e9edc76b0bad4e3ea778add17dd9fff",
       "sourceName": "contracts/Interfaces/IERC20.sol",
       "solcConfig": {
-        "version": "0.8.1",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -314,18 +314,18 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.8.1"
+        "^0.8.7"
       ],
       "artifacts": [
         "IERC20"
       ]
     },
     "/Users/hugopaiva-mba/Documents/hello-liquidity-pool/contracts/TokenizedVault.sol": {
-      "lastModificationDate": 1658707767017,
-      "contentHash": "60f59c2438e0a84dcd6dcabadbccc64f",
+      "lastModificationDate": 1658768658717,
+      "contentHash": "7a91311435c1f92d8983ed27ab2718cd",
       "sourceName": "contracts/TokenizedVault.sol",
       "solcConfig": {
-        "version": "0.8.1",
+        "version": "0.8.7",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -353,7 +353,7 @@
         "./ERC20.sol"
       ],
       "versionPragmas": [
-        "0.8.1"
+        "0.8.7"
       ],
       "artifacts": [
         "TokenizedVault"

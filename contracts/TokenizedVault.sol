@@ -1,6 +1,6 @@
 //SPDX-License-Identifier: MIT
 
-pragma solidity 0.8.1;
+pragma solidity 0.8.7;
 // Import the necessary files and lib
 
 import "./Interfaces/IERC4626.sol";
@@ -32,6 +32,7 @@ contract TokenizedVault is IERC4626, ERC20 {
 
 // a deposit function that receives assets fron users
     function deposit(uint256 assets) public{
+        asset.allowance(msg.sender, address(this));
         // checks that the deposit is higher than 0
         require (assets > 0, "Deposit less than Zero");
 
